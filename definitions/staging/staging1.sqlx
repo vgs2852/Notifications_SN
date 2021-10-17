@@ -1,0 +1,26 @@
+config {
+  type: "view"
+}
+
+
+SELECT
+      CASE
+        WHEN COUNT(*) > 0 THEN SUM(CNT)
+        ELSE 0
+      END AS CNT
+    FROM
+      (
+        SELECT
+          CAST(created AS DATE) AS created,
+          COUNT(DISTINCT(DOI)) AS CNT
+        FROM
+        ${ref("crossref_active_records")} 
+        WHERE
+           CAST(created AS DATE) = DATE_SUB(CURRENT_DATE(), INTERVAL 5 DAY)
+        GROUP BY
+          1
+        ORDER BY
+          1 DESC
+      )
+
+

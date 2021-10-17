@@ -1,0 +1,7 @@
+config {
+  type: "declaration",
+  database: "springer-nature-analytics",
+  schema: "article_market_tracker",
+  name: "crossref_active_records",
+  description: "crossref_active_records"
+}
