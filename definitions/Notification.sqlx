@@ -9,15 +9,15 @@ config {
 SELECT
   case when cnt < 5000 then True 
   else False
-  end as Error,
+  end as ERROR,
   case when cnt < 1000 then 'Failure' 
-  else 'critical'
-  end as severity
+  else 'Critical'
+  end as SEVERITY
   ,
-  'springer-nature-analytics.article_market_tracker.crossref_active_records'  as source_table,
-  'Akarsh Jain'  as owner,
-  'AMT'  as project_imapacted,
-  current_timestamp as current_timestamp
+  'springer-nature-analytics.article_market_tracker.crossref_active_records'  as Source_Table,
+  'Akarsh Jain'  as OWNER,
+  'AMT'  as Project_Imapacted,
+  current_timestamp as Current_Timestamp
   
 FROM
   (
