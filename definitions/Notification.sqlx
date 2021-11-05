@@ -7,7 +7,7 @@ config {
 --   ${ref("table_name")} / schema.table_name
 -- read more about ref() in the documentation tab -->
 SELECT
-  case when cnt < 5000 then True 
+  case when cnt < 10000 then True 
   else False
   end as ERROR,
   case when cnt < 1000 then 'Failure' 
