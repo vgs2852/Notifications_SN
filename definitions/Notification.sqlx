@@ -6,7 +6,7 @@ config {
 -- from 
 --   ${ref("table_name")} / schema.table_name
 -- read more about ref() in the documentation tab -->
-SELECT
+(SELECT
   case when cnt < 10000 then True 
   else False
   end as ERROR,
@@ -25,7 +25,7 @@ FROM
       CASE
         WHEN COUNT(*) > 0 THEN SUM(CNT)
         ELSE 0
-      END AS CNT
+        END AS CNT
     FROM
       (
         SELECT
@@ -41,7 +41,84 @@ FROM
           1 DESC
       )
   )
+)
+
+UNION ALL
 
 
+  (SELECT
+  case when cnt < 5000 then True 
+  else False
+  end as ERROR,
+  case when cnt < 2500 then 'High' 
+  else 'Low'
+  end as SEVERITY
+  ,
+  'springer-nature-analytics.articles_for_nano.mag_papers_from_azure_updated'  as Source_Table,
+  'Akarsh Jain'  as OWNER,
+  'Mag_papers_from_azure'  as Project_Imapacted,
+  current_timestamp as Current_Timestamp
+FROM
+  (
+    SELECT
+      CASE
+        WHEN COUNT(*) > 0 THEN SUM(CNT)
+        ELSE 0
+      END AS CNT
+    FROM
+      (
+        SELECT
+          CAST(OnlineDate AS DATE) AS OnlineDate,
+          COUNT(DISTINCT(DOI)) AS CNT
+        FROM
+          ${ref("mag_papers_from_azure_updated")}
+        WHERE
+          CAST(OnlineDate AS DATE) = DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)
+        GROUP BY
+          1
+        ORDER BY
+          1 DESC
+      )
+  )
+  )
 
-  
+UNION ALL
+
+
+ (SELECT
+	case when cnt < 4000 then True 
+	else False
+	end as ERROR,
+	case when cnt < 2000 then 'High' 
+	else 'Low'
+	end as SEVERITY
+  ,
+  'springer-nature-analytics.unpaywall.unpaywall_full_refresh'  as Source_Table,
+  'Akarsh Jain, Vikrant Ghadge'  as OWNER,
+  '	Unpaywall_full-refresh'  as Project_Imapacted,
+  current_timestamp as Current_Timestamp
+FROM
+  (
+    SELECT
+      CASE
+        WHEN COUNT(*) > 0 THEN SUM(CNT)
+        ELSE 0
+      END AS CNT
+    FROM
+      (
+        SELECT
+          CAST(updated AS DATE) AS updated,
+          COUNT(DISTINCT(DOI)) AS CNT
+        FROM
+          ${ref("unpaywall_full_refresh")}
+        WHERE
+          CAST(updated AS DATE) = DATE_SUB(CURRENT_DATE(), INTERVAL 10 DAY)
+        GROUP BY
+          1
+        ORDER BY
+          1 DESC
+      )
+  )
+ )
+
+
