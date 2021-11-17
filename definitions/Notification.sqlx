@@ -10,8 +10,8 @@ config {
   case when cnt < 10000 then True 
   else False
   end as ERROR,
-  case when cnt < 1000 then 'Failure' 
-  else 'Critical'
+  case when cnt < 1000 then 'High' 
+  else 'Low'
   end as SEVERITY
   ,
   'springer-nature-analytics.article_market_tracker.crossref_active_records'  as Source_Table,
@@ -95,7 +95,7 @@ UNION ALL
   ,
   'springer-nature-analytics.unpaywall.unpaywall_full_refresh'  as Source_Table,
   'Akarsh Jain, Vikrant Ghadge'  as OWNER,
-  '	Unpaywall_full-refresh'  as Project_Imapacted,
+  'Unpaywall_full-refresh'  as Project_Imapacted,
   current_timestamp as Current_Timestamp
 FROM
   (
