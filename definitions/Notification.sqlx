@@ -15,7 +15,7 @@ config {
   end as SEVERITY
   ,
   'springer-nature-analytics.article_market_tracker.crossref_active_records'  as Source_Table,
-  'Vikrant Ghadge,Krishna Vishwakarma'  as OWNER,
+  'Akarsh Jain'  as OWNER,
   'AMT'  as Project_Imapacted,
   current_timestamp as Current_Timestamp
   
@@ -55,7 +55,7 @@ UNION ALL
   end as SEVERITY
   ,
   'springer-nature-analytics.articles_for_nano.mag_papers_from_azure_updated'  as Source_Table,
-  'Vikrant Ghadge'  as OWNER,
+  'Krishna Vishwakarma'  as OWNER,
   'Mag_papers_from_azure'  as Project_Imapacted,
   current_timestamp as Current_Timestamp
 FROM
