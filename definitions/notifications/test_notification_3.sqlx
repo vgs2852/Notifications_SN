@@ -1,0 +1,39 @@
+config {
+  type: "view"
+}
+
+SELECT
+	case when cnt < 4000 then True 
+	else False
+	end as ERROR,
+	case when cnt < 2000 then 'High' 
+	else 'Low'
+	end as SEVERITY
+  ,
+  'springer-nature-analytics.unpaywall.unpaywall_full_refresh'  as Source_Table,
+  'Vikrant Ghadge'  as OWNER,
+  'Unpaywall_full-refresh'  as Project_Imapacted,
+  current_timestamp as Current_Timestamp
+FROM
+  (
+    SELECT
+      CASE
+        WHEN COUNT(*) > 0 THEN SUM(CNT)
+        ELSE 0
+      END AS CNT
+    FROM
+      (
+        SELECT
+          CAST(updated AS DATE) AS updated,
+          COUNT(DISTINCT(DOI)) AS CNT
+        FROM
+          ${ref("unpaywall_full_refresh")}
+        WHERE
+          CAST(updated AS DATE) = DATE_SUB(CURRENT_DATE(), INTERVAL 10 DAY)
+        GROUP BY
+          1
+        ORDER BY
+          1 DESC
+      )
+  )
+ 

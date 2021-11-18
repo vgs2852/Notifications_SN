@@ -10,3 +10,8 @@ UNION ALL
 
 
 select * from ${ref("test_notification_2")}
+
+
+UNION ALL
+
+select * from ${ref("test_notification_3")}
