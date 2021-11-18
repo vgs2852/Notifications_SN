@@ -1,0 +1,38 @@
+config {
+  type: "view"
+}
+
+SELECT
+  case when cnt < 5000 then True 
+  else False
+  end as ERROR,
+  case when cnt < 2500 then 'High' 
+  else 'Low'
+  end as SEVERITY
+  ,
+  'springer-nature-analytics.articles_for_nano.mag_papers_from_azure_updated'  as Source_Table,
+  'Daren Howell'  as OWNER,
+  'Mag_papers_from_azure'  as Project_Imapacted,
+  current_timestamp as Current_Timestamp
+FROM
+  (
+    SELECT
+      CASE
+        WHEN COUNT(*) > 0 THEN SUM(CNT)
+        ELSE 0
+      END AS CNT
+    FROM
+      (
+        SELECT
+          CAST(OnlineDate AS DATE) AS OnlineDate,
+          COUNT(DISTINCT(DOI)) AS CNT
+        FROM
+          ${ref("mag_papers_from_azure_updated")}
+        WHERE
+          CAST(OnlineDate AS DATE) = DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)
+        GROUP BY
+          1
+        ORDER BY
+          1 DESC
+      )
+  )

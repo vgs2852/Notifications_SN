@@ -1,0 +1,12 @@
+config {
+  type: "incremental"
+}
+
+
+select * from ${ref("test_notification_1")}
+
+
+UNION ALL
+
+
+select * from ${ref("test_notification_2")}
