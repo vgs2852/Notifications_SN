@@ -1,6 +1,6 @@
 {
     "warehouse": "bigquery",
-    "defaultSchema": "dataform_assertions",
+    "defaultSchema": "ace_notifications",
     "assertionSchema": "dataform_assertions",
     "defaultDatabase": "springer-nature-analytics"
 }
