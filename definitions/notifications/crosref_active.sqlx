@@ -1,5 +1,6 @@
 config {
-  type: "view"
+  type: "view",
+  name:"crossref_active_records_assertion"
 }
 
 SELECT
@@ -14,6 +15,7 @@ SELECT
   'Akarsh Jain'  as OWNER,
   'AMT'  as Project_Imapacted,
   current_timestamp as Current_Timestamp
+  ,extract(date from current_timestamp) as run_date
   
 FROM
   (

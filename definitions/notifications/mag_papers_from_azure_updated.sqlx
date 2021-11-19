@@ -1,7 +1,7 @@
 config {
-  type: "view"
+  type: "view",
+  name:"mag_papers_from_azure_updated_assertion"
 }
-
 SELECT
   case when cnt < 5000 then True 
   else False
@@ -13,7 +13,8 @@ SELECT
   'springer-nature-analytics.articles_for_nano.mag_papers_from_azure_updated'  as Source_Table,
   'Daren Howell'  as OWNER,
   'Mag_papers_from_azure'  as Project_Imapacted,
-  current_timestamp as Current_Timestamp
+  current_timestamp as Current_Timestamp,
+  extract(date from current_timestamp ) as run_date
 FROM
   (
     SELECT
