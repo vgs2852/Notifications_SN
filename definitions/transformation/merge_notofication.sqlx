@@ -1,5 +1,5 @@
 config {
-  type: "table",
+  type: "incremental",
   name:"notification",
    bigquery: {
     partitionBy: "run_date",
