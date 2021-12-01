@@ -12,7 +12,7 @@ SELECT
   end as SEVERITY
   ,
   'springer-nature-analytics.article_market_tracker.crossref_active_records'  as Source_Table,
-  'Akarsh Jain'  as OWNER,
+  'Vikrant Ghadge'  as OWNER,
   'AMT'  as Project_Imapacted,
    current_timestamp AS cts,
   extract(date from current_timestamp) as run_date
