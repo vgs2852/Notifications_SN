@@ -13,7 +13,7 @@ SELECT
   'springer-nature-analytics.articles_for_nano.mag_papers_from_azure_updated'  as Source_Table,
   'Vikrant Ghadge'  as OWNER,
   'Mag_papers_from_azure'  as Project_Imapacted,
-  GETDATE() as Current_Timestamp,
+  current_timestamp AS cts,
   extract(date from current_timestamp ) as run_date
 FROM
   (

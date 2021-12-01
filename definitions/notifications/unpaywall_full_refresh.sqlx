@@ -14,7 +14,7 @@ SELECT
   'springer-nature-analytics.unpaywall.unpaywall_full_refresh'  as Source_Table,
   'Vikrant Ghadge'  as OWNER,
   'Unpaywall_full-refresh'  as Project_Imapacted,
-  current_timestamp as Current_Timestamp,
+  current_timestamp AS cts,
   extract(date from current_timestamp ) as run_date
 FROM
   (
