@@ -1,0 +1,38 @@
+config {
+  type: "view",
+  name:"SN_Dimensions_freshness"
+ }
+
+SELECT
+  case when cnt < 5000 then True 
+  else False
+  end as ERROR,
+  case when cnt < 2500 then 'High' 
+  else 'Low'
+  end as SEVERITY
+  ,
+  'springer-nature-analytics.article_market_tracker.publications_full_refresh'  as Source_Table,
+  'Vikrant Ghadge'  as OWNER,
+  'publications_full_refresh'  as Project_Imapacted,
+  current_timestamp AS cts,
+  extract(date from current_timestamp ) as run_date
+FROM
+  (
+    SELECT
+      CASE
+        WHEN COUNT(*) > 0 THEN SUM(CNT)
+        ELSE 0
+      END AS CNT
+  FROM
+  (
+    SELECT
+      CAST(created_in_dimensions AS DATE) AS created_in_dimensions,
+      COUNT(DISTINCT(DOI)) AS CNT
+    FROM
+      ${ref("publications_full_refresh")}
+    WHERE
+      CAST(created_in_dimensions AS DATE) = DATE_SUB(CURRENT_DATE(), INTERVAL 5 DAY)
+      GROUP BY 1
+      ORDER BY 1 DESC
+  )
+ )

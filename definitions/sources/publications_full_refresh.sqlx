@@ -1,0 +1,7 @@
+config {
+  type: "declaration",
+  database: "springer-nature-analytics",
+  schema: "article_market_tracker",
+  name: "publications_full_refresh",
+  description: "publications_full_refresh"
+ }
