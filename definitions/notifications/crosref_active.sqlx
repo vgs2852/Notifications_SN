@@ -7,7 +7,7 @@ SELECT
   case when cnt < 5000 then True 
   else False
   end as ERROR,
-  case when cnt < 1000 then 'High' 
+  case when cnt < 2500 then 'High' 
   else 'Low'
   end as SEVERITY
   ,
