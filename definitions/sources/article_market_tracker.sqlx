@@ -1,0 +1,7 @@
+ config {
+  type: "declaration",
+  database: "sn-analytics-bronze-ba21d259",
+  schema: "article_market_tracker",
+  name: "article_market_tracker",
+  description: "article_market_tracker"
+ }

@@ -1,0 +1,34 @@
+config {
+  type: "view",
+  name:"publisher_article_change"
+ }
+
+SELECT
+  case when delta_pc > 1 then True 
+  else False
+  end as ERROR,
+  case when delta_pc > 1 then 'High' 
+  else 'Low'
+  end as SEVERITY
+  ,
+  'sn-analytics-bronze-ba21d259.article_market_tracker.publisher_articles_2020'  as Source_Table,
+  'Vikrant Ghadge'  as OWNER,
+  'publisher_articles_2020'  as Project_Imapacted,
+  current_timestamp AS cts,
+  extract(date from current_timestamp ) as run_date
+FROM
+  (
+    SELECT
+      *,
+      citable_articles - previous_citable_articles AS delta,
+      (citable_articles - previous_citable_articles) / citable_articles * 100 AS delta_pc
+    FROM
+      ${ref("publisher_articles_2020")}
+      LEFT JOIN (
+        SELECT
+          publishers_highlighted,
+          citable_articles AS previous_citable_articles
+        FROM
+          ${ref("publisher_articles_2020_yesterday")} 
+      ) USING (publishers_highlighted)
+  )

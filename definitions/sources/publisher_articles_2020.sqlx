@@ -1,0 +1,7 @@
+ config {
+  type: "declaration",
+  database: "sn-analytics-bronze-ba21d259",
+  schema: "article_market_tracker",
+  name: "publisher_articles_2020",
+  description: "publisher_articles_2020"
+ }

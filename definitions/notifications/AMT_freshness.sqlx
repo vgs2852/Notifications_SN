@@ -1,0 +1,41 @@
+config {
+  type: "view",
+  name:"AMT_freshness"
+ }
+
+SELECT
+  case when cnt < 5000 then True 
+  else False
+  end as ERROR,
+  case when cnt < 2500 then 'High' 
+  else 'Low'
+  end as SEVERITY
+  ,
+  'sn-analytics-bronze-ba21d259.article_market_tracker.article_market_tracker'  as Source_Table,
+  'Vikrant Ghadge'  as OWNER,
+  'article_market_tracker'  as Project_Imapacted,
+  current_timestamp AS cts,
+  extract(date from current_timestamp ) as run_date
+FROM
+  (
+    SELECT
+      CASE
+        WHEN COUNT(*) > 0 THEN SUM(CNT)
+        ELSE 0
+      END AS CNT
+    FROM
+      (
+        SELECT
+          report_date_CR_created_where_available,
+          COUNT(DISTINCT(DOI)) AS CNT
+        FROM
+          ${ref("article_market_tracker")}
+        WHERE
+          report_date_CR_created_where_available = DATE_SUB(CURRENT_DATE(), INTERVAL 5 DAY)
+        GROUP BY
+          1
+        ORDER BY
+          1 DESC
+      )
+  )
+  
