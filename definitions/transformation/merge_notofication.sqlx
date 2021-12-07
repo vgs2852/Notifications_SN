@@ -16,3 +16,15 @@ select * from ${ref("crossref_active_records_assertion")}
 union all
 
 select * from ${ref("unpaywall_full_refresh_assertion")}
+
+union all
+
+select * from ${ref("AMT_freshness")}
+
+union all
+
+select * from ${ref("publisher_article_change")}
+
+union all
+
+select * from ${ref("SN_Dimensions_freshness")}
