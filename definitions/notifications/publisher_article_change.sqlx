@@ -32,3 +32,7 @@ FROM
           ${ref("publisher_articles_2020_yesterday")} 
       ) USING (publishers_highlighted)
   )
+
+
+
+   LIMIT 1
