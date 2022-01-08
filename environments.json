@@ -7,6 +7,10 @@
         {
           "name": "new_schedule",
           "cron": "42 14 * * *"
+        },
+        {
+          "name": "notifiications_weekly",
+          "cron": "0 10 * * 5"
         }
       ],
       "gitRef": "master"
